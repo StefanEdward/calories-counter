@@ -4,13 +4,21 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         ProductCatalog productCatalog = new ProductCatalog();
+        Product p1 = new Product("mar",2,3,4);
+        Product p2 = new Product("para",2,3,4);
+        Product p3 = new Product("branza",2,3,4);
+        Product p4 = new Product("lapte",2,3,4);
+        productCatalog.addProduct(p1);
+        productCatalog.addProduct(p2);
+        productCatalog.addProduct(p3);
+        productCatalog.addProduct(p4);
+
         int selection;
         do{
             printMenu();
             selection = scanner.nextInt();
             performSelectedAction(selection, productCatalog);
         } while (selection !=6);
-        int a = 3;
     }
 
     public static void printMenu(){
@@ -28,13 +36,26 @@ public class Main {
     public static void performSelectedAction(int selection, ProductCatalog productCatalog){
         if(selection == 1){
             addProduct(productCatalog);
-        } else if (selection == 2){
+        } else if (selection == 2) {
             System.out.println("Ai ales sa calculezi caloriile unui produs");
+        }
+            else if (selection == 3) {
+            System.out.println("Ai ales sa calculezi caloriile unui produs");
+        } else if (selection == 4){
+                  deleteProduct(productCatalog);
         } else if (selection == 6){
             System.out.println("Ai ales sa iesi din aplicatie");
         } else{
             System.out.println("Optiunea introdusa este gresita. Introdu un numar de la 1 la 6");
         }
+    }
+
+    public static void deleteProduct(ProductCatalog productCatalog){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("ai ales sa stergi un produs");
+        System.out.println("Da-mi numele produsului");
+        String name = scanner.nextLine();
+        productCatalog.deleteProduct(name);
     }
 
     private static void addProduct(ProductCatalog productCatalog) {
