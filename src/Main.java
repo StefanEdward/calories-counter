@@ -10,6 +10,7 @@ public class Main {
             selection = scanner.nextInt();
             performSelectedAction(selection, productCatalog);
         } while (selection !=6);
+        int a = 10;
     }
 
     public static void printMenu(){
