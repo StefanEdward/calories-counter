@@ -37,12 +37,13 @@ public class Main {
         if(selection == 1){
             addProduct(productCatalog);
         } else if (selection == 2) {
-            System.out.println("Ai ales sa calculezi caloriile unui produs");
-        }
-            else if (selection == 3) {
-            System.out.println("Ai ales sa calculezi caloriile unui produs");
+            computeCalories();
+        } else if (selection == 3) {
+            productCatalog.printProducts();
         } else if (selection == 4){
-                  deleteProduct(productCatalog);
+            deleteProduct(productCatalog);
+        } else if (selection == 5){
+            findProduct(productCatalog);
         } else if (selection == 6){
             System.out.println("Ai ales sa iesi din aplicatie");
         } else{
@@ -50,14 +51,43 @@ public class Main {
         }
     }
 
+    public static void findProduct(ProductCatalog productCatalog){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("ai ales sa cauti un produs");
+        System.out.println("Da-mi numele produsului");
+        String name = scanner.nextLine();
+        Product product = productCatalog.getProductByName(name);
+        if (product == null){
+            System.out.println("produsul cu numele " + name + " nu exista");
+        } else {
+            System.out.println(product.toString());
+        }
+    }
+    public static void computeCalories(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Ai ales sa calculezi caloriile unui produs fara sa il adaugi in catalog");
+        System.out.println("Da-mi grasimi");
+        int fats = scanner.nextInt();
+        System.out.println("Da-mi carbohidrati");
+        int carbohydrates = scanner.nextInt();
+        System.out.println("Da-mi proteine");
+        int proteins = scanner.nextInt();
+        int kcal = Product.computeCalories(fats,carbohydrates,proteins);
+        System.out.println("Produsul are "+ kcal + " calorii");
+    }
     public static void deleteProduct(ProductCatalog productCatalog){
         Scanner scanner = new Scanner(System.in);
         System.out.println("ai ales sa stergi un produs");
         System.out.println("Da-mi numele produsului");
         String name = scanner.nextLine();
-        productCatalog.deleteProduct(name);
-    }
 
+        boolean deleted = productCatalog.deleteProduct(name);
+        if (deleted){
+            System.out.println("produsul cu numele " + name + " a fost sters");
+        } else {
+            System.out.println("produsul cu numele " + name + " nu a fost gasit");
+        }
+    }
     private static void addProduct(ProductCatalog productCatalog) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("ai ales sa adaugi un produs");
@@ -70,10 +100,14 @@ public class Main {
         System.out.println("Da-mi proteine");
         int proteins = scanner.nextInt();
         Product product = new Product(name, fats, carbohydrates, proteins);
-        productCatalog.addProduct(product);
+        boolean added = productCatalog.addProduct(product);
+        if (added) {
+            System.out.println("produsul cu numele " + name + " a fost adaugat");
+        } else {
+            System.out.println("produsul cu numele " + name + " exista deja");
+        }
     }
 }
-
 
 
 
